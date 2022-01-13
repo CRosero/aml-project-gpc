@@ -10,7 +10,7 @@ from torch.utils import data
 from PIL import Image
 
 class cityscapesDataSet(data.Dataset):
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255):
+    def __init__(self, root, list_path, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
