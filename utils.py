@@ -134,15 +134,15 @@ def colour_code_segmentation(image, label_values):
         Colour coded image for segmentation visualization
    	"""
 
-    	w = image.shape[0]
-    	h = image.shape[1]
-    	x = np.zeros([w,h,3])
-    	colour_codes = label_values
-    	for i in range(0, w):
-      		for j in range(0, h):
-	      		x[i, j, :] = colour_codes[image[i, j]]
+	w = image.shape[0]
+	h = image.shape[1]
+	x = np.zeros([w,h,3])
+	colour_codes = label_values
+	for i in range(0, w):
+		for j in range(0, h):
+			x[i, j, :] = colour_codes[image[i, j]]
 
-    	return x
+	return x
 
 def compute_global_accuracy(pred, label):
 	pred = pred.flatten()
