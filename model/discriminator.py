@@ -28,7 +28,7 @@ class FCDiscriminator(nn.Module):
         return x
 
 
-class LightFCDiscriminator(nn.Module):
+class LightWeightFCDiscriminator(nn.Module):
     def __init__(self, num_classes, ndf=64):
         super(LightFCDiscriminator, self).__init__()
 
