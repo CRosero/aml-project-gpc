@@ -30,7 +30,7 @@ class FCDiscriminator(nn.Module):
 
 class LightWeightFCDiscriminator(nn.Module):
     def __init__(self, num_classes, ndf=64):
-        super(LightFCDiscriminator, self).__init__()
+        super(LightWeightFCDiscriminator, self).__init__()
 
         # context
         self.conv1 = DepthWiseSeparableConvolution(num_classes, ndf)
