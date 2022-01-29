@@ -72,11 +72,14 @@ class GTA5DataSet(data.Dataset):
         name = datafiles["name"]
 
         if self.augmentation:
-            AUG_PROB = 0.5
+            AUG_PROB = 1
+            print(AUG_PROB)
             if np.random.rand() < AUG_PROB:
+                print("flipping")
                 hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
                 image = hor_flip(image)
                 label = hor_flip(label)
+               
         # resize
         image = image.resize(self.crop_size, Image.BILINEAR)
         label = label.resize(self.crop_size, Image.NEAREST)
