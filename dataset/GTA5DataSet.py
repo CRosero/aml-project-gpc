@@ -23,7 +23,7 @@ def label_mapping(input, mapping):
 
 class GTA5DataSet(data.Dataset):
                  
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False):
+    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False, hor_flipping_prob, blur_prob):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
@@ -72,13 +72,16 @@ class GTA5DataSet(data.Dataset):
         name = datafiles["name"]
 
         if self.augmentation:
-            AUG_PROB = 1
-            print(AUG_PROB)
-            if np.random.rand() < AUG_PROB:
-                print("flipping")
-                hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
-                image = hor_flip(image)
-                label = hor_flip(label)
+            if np.random.rand() < hor_flipping_prob:
+               print("flipping")
+               hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
+               image = hor_flip(image)
+               label = hor_flip(label)
+            
+            if np.random.rand() < blur_prob:
+               print("blurring")
+               blurred = torchvision.transforms.GaussianBlur(sigma=(10,10))
+               image = blurred(image)
                
         # resize
         image = image.resize(self.crop_size, Image.BILINEAR)
