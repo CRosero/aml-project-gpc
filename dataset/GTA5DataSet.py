@@ -32,6 +32,8 @@ class GTA5DataSet(data.Dataset):
         self.mean = mean
         self.is_mirror = mirror
         self.augmentation = augmentation
+        self.hor_flipping_prob = hor_flipping_prob
+        self.blur_prob = blur_prob
         self.img_ids = [i_id.strip() for i_id in open(list_path)]
         if not max_iters==None:
             self.img_ids = self.img_ids * int(np.ceil(float(max_iters) / len(self.img_ids)))
