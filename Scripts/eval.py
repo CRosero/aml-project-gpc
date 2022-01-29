@@ -153,7 +153,7 @@ def main(params):
     # get label info
     # label_info = get_label_info(csv_path)
     # test
-    test(model, dataloader, args, csv_path)
+    # test(model, dataloader, args, csv_path)
 
 
 if __name__ == '__main__':
