@@ -23,7 +23,7 @@ def label_mapping(input, mapping):
 
 class GTA5DataSet(data.Dataset):
                  
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False):
+    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False, hor_flipping_prob=0.0, blur_prob=0.0):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
@@ -32,6 +32,8 @@ class GTA5DataSet(data.Dataset):
         self.mean = mean
         self.is_mirror = mirror
         self.augmentation = augmentation
+        self.hor_flipping_prob = hor_flipping_prob
+        self.blur_prob = blur_prob
         self.img_ids = [i_id.strip() for i_id in open(list_path)]
         if not max_iters==None:
             self.img_ids = self.img_ids * int(np.ceil(float(max_iters) / len(self.img_ids)))
@@ -72,11 +74,17 @@ class GTA5DataSet(data.Dataset):
         name = datafiles["name"]
 
         if self.augmentation:
-            AUG_PROB = 0.5
-            if np.random.rand() < AUG_PROB:
-                hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
-                image = hor_flip(image)
-                label = hor_flip(label)
+            if np.random.rand() < self.hor_flipping_prob:
+               print("flipping")
+               hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
+               image = hor_flip(image)
+               label = hor_flip(label)
+            
+            if np.random.rand() < self.blur_prob:
+               print("blurring")
+               blurred = torchvision.transforms.GaussianBlur(9)
+               image = blurred(image)
+               
         # resize
         image = image.resize(self.crop_size, Image.BILINEAR)
         label = label.resize(self.crop_size, Image.NEAREST)
