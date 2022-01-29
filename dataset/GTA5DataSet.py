@@ -82,7 +82,7 @@ class GTA5DataSet(data.Dataset):
             
             if np.random.rand() < self.blur_prob:
                print("blurring")
-               blurred = torchvision.transforms.GaussianBlur(sigma=(10,10))
+               blurred = torchvision.transforms.GaussianBlur((10,10))
                image = blurred(image)
                
         # resize
