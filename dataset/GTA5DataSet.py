@@ -72,13 +72,13 @@ class GTA5DataSet(data.Dataset):
         name = datafiles["name"]
 
         if self.augmentation:
-            if np.random.rand() < hor_flipping_prob:
+            if np.random.rand() < self.hor_flipping_prob:
                print("flipping")
                hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
                image = hor_flip(image)
                label = hor_flip(label)
             
-            if np.random.rand() < blur_prob:
+            if np.random.rand() < self.blur_prob:
                print("blurring")
                blurred = torchvision.transforms.GaussianBlur(sigma=(10,10))
                image = blurred(image)
