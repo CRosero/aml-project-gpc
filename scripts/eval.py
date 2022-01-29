@@ -73,7 +73,7 @@ def val(args, model, dataloader, save=False):
         miou_list = per_class_iu(hist)[:-1]
         # miou_dict, miou = cal_miou(miou_list, csv_path)
         miou = np.mean(miou_list)
-        print()
+        print("")
         print('precision per pixel for test: %.3f' % precision)
         print('mIoU for validation: %.3f' % miou)
         # miou_str = ''
