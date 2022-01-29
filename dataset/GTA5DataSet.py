@@ -23,7 +23,7 @@ def label_mapping(input, mapping):
 
 class GTA5DataSet(data.Dataset):
                  
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False, hor_flipping_prob, blur_prob):
+    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False, hor_flipping_prob=0.0, blur_prob=0.0):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
