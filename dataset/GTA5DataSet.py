@@ -76,7 +76,7 @@ class GTA5DataSet(data.Dataset):
                label = hor_flip(label)
             
             if np.random.rand() < self.augmentation["blur_prob"]:
-               blurred = torchvision.transforms.GaussianBlur(self.augmentation["blur"])
+               blurred = torchvision.transforms.GaussianBlur(kernel_size = self.augmentation["kernel_size"], sigma = self.augmentation["sigma"])
                image = blurred(image)
                
         # resize
