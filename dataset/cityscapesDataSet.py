@@ -22,14 +22,14 @@ def label_mapping(input, mapping):
    return np.array(output, dtype=np.int64)
 
 class cityscapesDataSet(data.Dataset):
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255):
+    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
-        self.scale = scale
         self.ignore_label = ignore_label
         self.mean = mean
-        self.is_mirror = mirror
+        self.augmentation = augmentation
+
         # in the list_path file of paths format [ name_of_folder/name_of_image ] -> img_ids list of paths format [name_of_image]
         self.img_ids = [i_id.strip().split("/")[1] for i_id in open(list_path)] 
         if not max_iters==None:
@@ -70,6 +70,16 @@ class cityscapesDataSet(data.Dataset):
         image = Image.open(datafiles["img"]).convert('RGB')
         label = Image.open(datafiles["label"])
         name = datafiles["name"]
+         
+        if not self.augmentation == None:
+            if np.random.rand() < self.augmentation["hor_flipping_prob"]:
+               hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
+               image = hor_flip(image)
+               label = hor_flip(label)
+            
+            if np.random.rand() < self.augmentation["blur_prob"]:
+               blurred = torchvision.transforms.GaussianBlur(self.augmentation["blur"])
+               image = blurred(image)
 
         # resize
         image = image.resize(self.crop_size, Image.BILINEAR)
