@@ -10,7 +10,7 @@ from PIL import Image
 
 
 ## -- VALIDATION --
-def val(args, model, dataloader, save=False):
+def val(args, model, dataloader, save=False, batch_size=1):
 
     #TODO: prendere dal json
     palette = [[128,64,128],[244,35,232], [70,70,70],[102,102,156],[190,153,153],[153,153,153],[250,170,30],[220,220,0],[107,142,35],[152,251,152],[70,130,180],[220,20,60],[255,0,0],[0,0,142],[0,0,70],[0,60,100],[0,80,100],[0,0,230],[119,11,32],[0,0,0]]
@@ -23,11 +23,11 @@ def val(args, model, dataloader, save=False):
         model.eval()
         precision_record = []
         hist = np.zeros((args.num_classes, args.num_classes))
-        tq =tqdm(total=len(dataloader) * args.batch_size)
+        tq =tqdm(total=len(dataloader) * batch_size)
         tq.set_description('val')
         
         for i, (data, label) in enumerate(dataloader):
-            tq.update(args.batch_size)
+            tq.update(batch_size)
             label = label.type(torch.LongTensor)
             if torch.cuda.is_available() and args.use_gpu:
                 data = data.cuda()

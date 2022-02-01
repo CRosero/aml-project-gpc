@@ -23,18 +23,16 @@ def label_mapping(input, mapping):
 
 class GTA5DataSet(data.Dataset):
                  
-    def __init__(self, root, list_path, info_json, max_iters=None, crop_size=(321, 321), mean=(128, 128, 128), scale=True, mirror=True, ignore_label=255, augmentation=False):
+    def __init__(self, root, list_path, info_json, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
-        self.scale = scale
         self.ignore_label = ignore_label
         self.mean = mean
-        self.is_mirror = mirror
         self.augmentation = augmentation
+            
         self.img_ids = [i_id.strip() for i_id in open(list_path)]
-        if not max_iters==None:
-            self.img_ids = self.img_ids * int(np.ceil(float(max_iters) / len(self.img_ids)))
+        
         self.files = []
 
         self.mapping = np.array(info_json['label2train'], dtype=np.int)
@@ -71,12 +69,16 @@ class GTA5DataSet(data.Dataset):
         label = Image.open(datafiles["label"])
         name = datafiles["name"]
 
-        if self.augmentation:
-            AUG_PROB = 0.5
-            if np.random.rand() < AUG_PROB:
-                hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
-                image = hor_flip(image)
-                label = hor_flip(label)
+        if not self.augmentation == None:
+            if np.random.rand() < self.augmentation["hor_flipping_prob"]:
+               hor_flip = torchvision.transforms.RandomHorizontalFlip(p=1)
+               image = hor_flip(image)
+               label = hor_flip(label)
+            
+            if np.random.rand() < self.augmentation["blur_prob"]:
+               blurred = torchvision.transforms.GaussianBlur(kernel_size = self.augmentation["kernel_size"], sigma = self.augmentation["sigma"])
+               image = blurred(image)
+               
         # resize
         image = image.resize(self.crop_size, Image.BILINEAR)
         label = label.resize(self.crop_size, Image.NEAREST)
@@ -93,3 +95,4 @@ class GTA5DataSet(data.Dataset):
         image = image.transpose((2, 0, 1))
 
         return image.copy(), label.copy() #, np.array(size), name 
+

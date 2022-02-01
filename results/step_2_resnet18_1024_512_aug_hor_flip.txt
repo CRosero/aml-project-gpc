@@ -1,0 +1,225 @@
+    params = [
+        '--num_epochs', '50',
+        '--learning_rate', '2.5e-2',
+        '--data', data_path,
+        '--num_workers', '8',
+        '--num_classes', '19',
+        '--cuda', '0',
+        '--batch_size', '4',  
+        '--save_model_path', '/gdrive/MyDrive/Project_AML/Models/',
+        '--pretrained_model_path', '',
+        '--save_tb_path', '/gdrive/MyDrive/Project_AML/Graphs/',
+        '--context_path', 'resnet18',  # set resnet18 or resnet101, only support resnet18 and resnet101
+        '--optimizer', 'sgd',
+        '--checkpoint_step', '2',        
+        '--validation_step', '2',
+        '--crop_width', '1024',
+        '--crop_height', '512',
+        '--load_pretrained_model', False
+
+
+
+
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:32<00:00,  2.69it/s]
+precision per pixel for test: 0.764
+mIoU for validation: 0.367
+
+epoch 7, lr 0.021827: 100%|██████████| 500/500 [06:32<00:00,  1.27it/s]
+loss for train : 0.895495
+epoch 8, lr 0.021369: 100%|██████████| 500/500 [06:26<00:00,  1.29it/s]
+loss for train : 0.802665
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.65it/s]
+precision per pixel for test: 0.778
+mIoU for validation: 0.396
+
+epoch 9, lr 0.020911: 100%|██████████| 500/500 [06:24<00:00,  1.30it/s]
+loss for train : 0.766762
+epoch 10, lr 0.020451: 100%|██████████| 500/500 [06:20<00:00,  1.31it/s]
+loss for train : 0.732803
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:35<00:00,  2.63it/s]
+precision per pixel for test: 0.777
+mIoU for validation: 0.427
+
+epoch 11, lr 0.019991: 100%|██████████| 500/500 [06:19<00:00,  1.32it/s]
+loss for train : 0.707412
+epoch 12, lr 0.019529: 100%|██████████| 500/500 [06:16<00:00,  1.33it/s]
+loss for train : 0.671529
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:31<00:00,  2.73it/s]
+
+precision per pixel for test: 0.773
+mIoU for validation: 0.420
+epoch 13, lr 0.019066: 100%|██████████| 500/500 [06:13<00:00,  1.34it/s]
+loss for train : 0.656802
+epoch 14, lr 0.018601: 100%|██████████| 500/500 [06:10<00:00,  1.35it/s]
+loss for train : 0.611033
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.65it/s]
+precision per pixel for test: 0.791
+mIoU for validation: 0.460
+
+epoch 15, lr 0.018135: 100%|██████████| 500/500 [06:07<00:00,  1.36it/s]
+loss for train : 0.588044
+epoch 16, lr 0.017668: 100%|██████████| 500/500 [06:15<00:00,  1.33it/s]
+loss for train : 0.556612
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.64it/s]
+precision per pixel for test: 0.793
+mIoU for validation: 0.471
+
+epoch 17, lr 0.017200: 100%|██████████| 500/500 [06:14<00:00,  1.33it/s]
+loss for train : 0.548218
+epoch 18, lr 0.016730: 100%|██████████| 500/500 [06:12<00:00,  1.34it/s]
+loss for train : 0.535317
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:40<00:00,  2.50it/s]
+precision per pixel for test: 0.794
+mIoU for validation: 0.477
+
+epoch 19, lr 0.016259: 100%|██████████| 500/500 [06:12<00:00,  1.34it/s]
+loss for train : 0.546873
+epoch 20, lr 0.015786: 100%|██████████| 500/500 [06:13<00:00,  1.34it/s]
+loss for train : 0.522547
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:39<00:00,  2.52it/s]
+
+precision per pixel for test: 0.791
+mIoU for validation: 0.462
+epoch 21, lr 0.015312: 100%|██████████| 500/500 [06:10<00:00,  1.35it/s]
+loss for train : 0.501234
+epoch 22, lr 0.014836: 100%|██████████| 500/500 [06:07<00:00,  1.36it/s]
+loss for train : 0.486852
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:39<00:00,  2.51it/s]
+
+precision per pixel for test: 0.788
+mIoU for validation: 0.455
+epoch 23, lr 0.014358: 100%|██████████| 500/500 [06:05<00:00,  1.37it/s]
+loss for train : 0.474163
+epoch 24, lr 0.013879: 100%|██████████| 500/500 [06:06<00:00,  1.36it/s]
+loss for train : 0.465738
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.65it/s]
+precision per pixel for test: 0.794
+mIoU for validation: 0.481
+
+epoch 25, lr 0.013397: 100%|██████████| 500/500 [06:04<00:00,  1.37it/s]
+loss for train : 0.454043
+epoch 26, lr 0.012914: 100%|██████████| 500/500 [06:04<00:00,  1.37it/s]
+loss for train : 0.450670
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:32<00:00,  2.71it/s]
+precision per pixel for test: 0.795
+mIoU for validation: 0.487
+
+epoch 27, lr 0.012429: 100%|██████████| 500/500 [06:01<00:00,  1.38it/s]
+loss for train : 0.439393
+epoch 28, lr 0.011941: 100%|██████████| 500/500 [06:02<00:00,  1.38it/s]
+loss for train : 0.434973
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.65it/s]
+precision per pixel for test: 0.796
+mIoU for validation: 0.500
+
+epoch 29, lr 0.011452: 100%|██████████| 500/500 [06:00<00:00,  1.39it/s]
+loss for train : 0.426569
+epoch 30, lr 0.010960: 100%|██████████| 500/500 [06:02<00:00,  1.38it/s]
+loss for train : 0.424470
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:39<00:00,  2.52it/s]
+
+precision per pixel for test: 0.797
+mIoU for validation: 0.499
+epoch 31, lr 0.010465: 100%|██████████| 500/500 [06:01<00:00,  1.38it/s]
+loss for train : 0.419351
+epoch 32, lr 0.009968: 100%|██████████| 500/500 [06:11<00:00,  1.35it/s]
+loss for train : 0.410746
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:39<00:00,  2.51it/s]
+
+precision per pixel for test: 0.797
+mIoU for validation: 0.486
+epoch 33, lr 0.009468: 100%|██████████| 500/500 [06:11<00:00,  1.35it/s]
+loss for train : 0.406529
+epoch 34, lr 0.008966: 100%|██████████| 500/500 [06:11<00:00,  1.34it/s]
+loss for train : 0.403186
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:32<00:00,  2.71it/s]
+
+precision per pixel for test: 0.796
+mIoU for validation: 0.489
+epoch 35, lr 0.008460: 100%|██████████| 500/500 [06:10<00:00,  1.35it/s]
+loss for train : 0.396185
+epoch 36, lr 0.007950: 100%|██████████| 500/500 [06:10<00:00,  1.35it/s]
+loss for train : 0.395336
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:34<00:00,  2.64it/s]
+
+precision per pixel for test: 0.797
+mIoU for validation: 0.488
+epoch 37, lr 0.007437: 100%|██████████| 500/500 [06:09<00:00,  1.35it/s]
+loss for train : 0.389519
+epoch 38, lr 0.006920: 100%|██████████| 500/500 [06:08<00:00,  1.36it/s]
+loss for train : 0.388034
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:33<00:00,  2.68it/s]
+
+precision per pixel for test: 0.797
+mIoU for validation: 0.493
+epoch 39, lr 0.006399: 100%|██████████| 500/500 [06:09<00:00,  1.35it/s]
+loss for train : 0.384806
+epoch 40, lr 0.005873: 100%|██████████| 500/500 [06:08<00:00,  1.36it/s]
+loss for train : 0.382269
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:37<00:00,  2.57it/s]
+
+precision per pixel for test: 0.798
+mIoU for validation: 0.499
+epoch 41, lr 0.005342: 100%|██████████| 500/500 [06:07<00:00,  1.36it/s]
+loss for train : 0.380467
+epoch 42, lr 0.004804: 100%|██████████| 500/500 [06:05<00:00,  1.37it/s]
+loss for train : 0.376203
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:42<00:00,  2.43it/s]
+
+precision per pixel for test: 0.798
+mIoU for validation: 0.492
+epoch 43, lr 0.004260: 100%|██████████| 500/500 [06:06<00:00,  1.36it/s]
+loss for train : 0.372793
+epoch 44, lr 0.003709: 100%|██████████| 500/500 [06:06<00:00,  1.37it/s]
+loss for train : 0.371013
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:42<00:00,  2.44it/s]
+
+precision per pixel for test: 0.798
+mIoU for validation: 0.499
+epoch 45, lr 0.003147: 100%|██████████| 500/500 [06:06<00:00,  1.36it/s]
+loss for train : 0.369699
+epoch 46, lr 0.002575: 100%|██████████| 500/500 [06:05<00:00,  1.37it/s]
+loss for train : 0.367476
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:29<00:00,  2.79it/s]
+
+precision per pixel for test: 0.798
+mIoU for validation: 0.494
+
+epoch 47, lr 0.001987: 100%|██████████| 500/500 [05:40<00:00,  1.47it/s]
+loss for train : 0.366019
+epoch 48, lr 0.001380: 100%|██████████| 500/500 [05:36<00:00,  1.49it/s]
+loss for train : 0.365160
+Saving checkpoint
+val: 100%|██████████| 250/250 [01:36<00:00,  2.60it/s]
+
+precision per pixel for test: 0.798
+mIoU for validation: 0.495
+epoch 49, lr 0.000739: 100%|██████████| 500/500 [05:35<00:00,  1.49it/s]
+loss for train : 0.364536
+
+
+---------------------------------------------------------------
+val: 100%|██████████| 250/250 [02:17<00:00,  1.82it/s]
+precision per pixel for test: 0.798
+mIoU for validation: 0.494
