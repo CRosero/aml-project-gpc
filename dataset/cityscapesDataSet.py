@@ -22,7 +22,7 @@ def label_mapping(input, mapping):
    return np.array(output, dtype=np.int64)
 
 class cityscapesDataSet(data.Dataset):
-    def __init__(self, root, list_path, info_json, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None):
+    def __init__(self, root, list_path, info_json, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None, max_iters=None):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
@@ -30,12 +30,13 @@ class cityscapesDataSet(data.Dataset):
         self.mean = mean
         self.augmentation = augmentation
 
-        # in the list_path file of paths format [ name_of_folder/name_of_image ] -> img_ids list of paths format [name_of_image]
-        self.img_ids = [i_id.strip().split("/")[1] for i_id in open(list_path)] 
-        
+        # in the list_path file of paths format [ name_of_folder/name_of_image ] -> img_paths list of paths format [name_of_image]
+        self.img_paths = [i_id.strip().split("/")[1] for i_id in open(list_path)] 
+        if not max_iters==None:
+            self.img_paths = self.img_paths * int(np.ceil(float(max_iters) / len(self.img_paths)))
         self.files = []
 
-        for name in self.img_ids:
+        for name in self.img_paths:
             img_file = osp.join(self.root , "images", name)
             label_file = osp.join(self.root , "labels", name).replace("leftImg8bit", "gtFine_labelIds")
             self.files.append({
