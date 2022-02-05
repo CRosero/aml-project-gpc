@@ -23,7 +23,7 @@ def label_mapping(input, mapping):
 
 class GTA5DataSet(data.Dataset):
                  
-    def __init__(self, root, list_path, info_json, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None):
+    def __init__(self, root, list_path, info_json, crop_size=(321, 321), mean=(128, 128, 128), ignore_label=255, augmentation=None, max_iters=None):
         self.root = root
         self.list_path = list_path
         self.crop_size = crop_size
@@ -31,14 +31,16 @@ class GTA5DataSet(data.Dataset):
         self.mean = mean
         self.augmentation = augmentation
             
-        self.img_ids = [i_id.strip() for i_id in open(list_path)]
+        self.img_paths = [i_id.strip() for i_id in open(list_path)]
+        if not max_iters==None:
+            self.img_paths = self.img_paths * int(np.ceil(float(max_iters) / len(self.img_paths)))
         
         self.files = []
 
         self.mapping = np.array(info_json['label2train'], dtype=np.int)
 
-        # for split in ["train", "trainval", "val"]:
-        for name in self.img_ids:
+
+        for name in self.img_paths:
             img_file = osp.join(self.root, "images/%s" % name)
             label_file = osp.join(self.root, "labels/%s" % name)
             self.files.append({
