@@ -236,17 +236,18 @@ class RandomCrop(object):
 	def __repr__(self):
 		return self.__class__.__name__ + '(size={0}, padding={1})'.format(self.size, self.padding)
 
-def cal_miou(miou_list, csv_path):
+def cal_miou(miou_list, info_json):
 	# return label -> {label_name: [r_value, g_value, b_value, ...}
-	ann = pd.read_csv(csv_path)
-	miou_dict = {}
-	cnt = 0
-	for iter, row in ann.iterrows():
-		label_name = row['name']
-		class_11 = int(row['class_11'])
-		if class_11 == 1:
-			miou_dict[label_name] = miou_list[cnt]
-			cnt += 1
+	labels = info_json["label"]
+	miou_dict = dict(zip(labels, miou_list)) 
+	#cnt = 0
+	#for iter, row in ann.iterrows():
+	#	label_name = row['name']
+	#	class_11 = int(row['class_11'])
+	#	if class_11 == 1:
+	#		miou_dict[label_name] = miou_list[cnt]
+	#		cnt += 1
+	
 	return miou_dict, np.mean(miou_list)
 
 class OHEM_CrossEntroy_Loss(nn.Module):
