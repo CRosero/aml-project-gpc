@@ -24,7 +24,7 @@ class FCDiscriminator(nn.Module):
         x = self.conv4(x)
         x = self.leaky_relu(x)
         x = self.classifier(x)
-        x = self.up_sample(x)
+        #x = self.up_sample(x)
         return x
 
 
@@ -52,7 +52,7 @@ class LightWeightFCDiscriminator(nn.Module):
         x = self.conv4(x)
         x = self.leaky_relu(x)
         x = self.classifier(x)
-        x = self.up_sample(x)
+        #x = self.up_sample(x)
         return x
 
 class DepthWiseSeparableConvolution(nn.Module):
