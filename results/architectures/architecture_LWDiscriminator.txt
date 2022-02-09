@@ -1,37 +1,38 @@
+====================================================================================================
 Lightweight Adversarial Domain Adaptation
 
 ==========================================================================================
 Layer (type:depth-idx)                   Output Shape              Param #
 ==========================================================================================
 LightWeightFCDiscriminator               --                        --
-├─DepthWiseSeparableConvolution: 1-1     [2, 64, 512, 256]         --
-│    └─Conv2d: 2-1                       [2, 19, 512, 256]         323
-│    └─Conv2d: 2-2                       [2, 64, 512, 256]         1,280
-├─LeakyReLU: 1-2                         [2, 64, 512, 256]         --
-├─DepthWiseSeparableConvolution: 1-3     [2, 128, 256, 128]        --
-│    └─Conv2d: 2-3                       [2, 64, 256, 128]         1,088
-│    └─Conv2d: 2-4                       [2, 128, 256, 128]        8,320
-├─LeakyReLU: 1-4                         [2, 128, 256, 128]        --
-├─DepthWiseSeparableConvolution: 1-5     [2, 256, 128, 64]         --
-│    └─Conv2d: 2-5                       [2, 128, 128, 64]         2,176
-│    └─Conv2d: 2-6                       [2, 256, 128, 64]         33,024
-├─LeakyReLU: 1-6                         [2, 256, 128, 64]         --
-├─DepthWiseSeparableConvolution: 1-7     [2, 512, 64, 32]          --
-│    └─Conv2d: 2-7                       [2, 256, 64, 32]          4,352
-│    └─Conv2d: 2-8                       [2, 512, 64, 32]          131,584
-├─LeakyReLU: 1-8                         [2, 512, 64, 32]          --
-├─DepthWiseSeparableConvolution: 1-9     [2, 1, 32, 16]            --
-│    └─Conv2d: 2-9                       [2, 512, 32, 16]          8,704
-│    └─Conv2d: 2-10                      [2, 1, 32, 16]            513
-├─Upsample: 1-10                         [2, 1, 1024, 512]         --
+├─DepthWiseSeparableConvolution: 1-1     [4, 64, 512, 256]         --
+│    └─Conv2d: 2-1                       [4, 19, 512, 256]         323
+│    └─Conv2d: 2-2                       [4, 64, 512, 256]         1,280
+├─LeakyReLU: 1-2                         [4, 64, 512, 256]         --
+├─DepthWiseSeparableConvolution: 1-3     [4, 128, 256, 128]        --
+│    └─Conv2d: 2-3                       [4, 64, 256, 128]         1,088
+│    └─Conv2d: 2-4                       [4, 128, 256, 128]        8,320
+├─LeakyReLU: 1-4                         [4, 128, 256, 128]        --
+├─DepthWiseSeparableConvolution: 1-5     [4, 256, 128, 64]         --
+│    └─Conv2d: 2-5                       [4, 128, 128, 64]         2,176
+│    └─Conv2d: 2-6                       [4, 256, 128, 64]         33,024
+├─LeakyReLU: 1-6                         [4, 256, 128, 64]         --
+├─DepthWiseSeparableConvolution: 1-7     [4, 512, 64, 32]          --
+│    └─Conv2d: 2-7                       [4, 256, 64, 32]          4,352
+│    └─Conv2d: 2-8                       [4, 512, 64, 32]          131,584
+├─LeakyReLU: 1-8                         [4, 512, 64, 32]          --
+├─DepthWiseSeparableConvolution: 1-9     [4, 1, 32, 16]            --
+│    └─Conv2d: 2-9                       [4, 512, 32, 16]          8,704
+│    └─Conv2d: 2-10                      [4, 1, 32, 16]            513
+├─Upsample: 1-10                         [4, 1, 1024, 512]         --
 ==========================================================================================
 Total params: 191,364
 Trainable params: 191,364
 Non-trainable params: 0
-Total mult-adds (G): 2.18
+Total mult-adds (G): 4.36
 ==========================================================================================
-Input size (MB): 79.69
-Forward/backward pass size (MB): 354.43
+Input size (MB): 159.38
+Forward/backward pass size (MB): 708.85
 Params size (MB): 0.77
-Estimated Total Size (MB): 434.88
+Estimated Total Size (MB): 869.00
 ==========================================================================================
