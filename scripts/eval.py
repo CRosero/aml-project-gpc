@@ -86,7 +86,7 @@ def val(args, model, dataloader, save=False, batch_size=1):
         
         precision = np.mean(precision_record)
         # miou = np.mean(per_class_iu(hist))
-        miou_list = per_class_iu(hist)[:-1]
+        miou_list = per_class_iu(hist) #[:-1]
         # miou_dict, miou = cal_miou(miou_list, csv_path)
         miou = np.mean(miou_list)
         print("")
@@ -100,7 +100,7 @@ def val(args, model, dataloader, save=False, batch_size=1):
         return precision, miou
 
 
-def test(args,model,dataloader, info_json, save_path, save=False, batch_size=1):
+def test(args,model,dataloader, info_json, save_path="", save=False, batch_size=1):
     #TODO: prendere dal json
     #palette = [[128,64,128],[244,35,232], [70,70,70],[102,102,156],[190,153,153],[153,153,153],[250,170,30],[220,220,0],[107,142,35],[152,251,152],[70,130,180],[220,20,60],[255,0,0],[0,0,142],[0,0,70],[0,60,100],[0,80,100],[0,0,230],[119,11,32],[0,0,0]]
     palette = info_json['palette']
@@ -109,14 +109,15 @@ def test(args,model,dataloader, info_json, save_path, save=False, batch_size=1):
     dictionary = dict(zip(num, palette)) 
     print('start test!')
     
-    folder_predict =os.path.join(save_path, "predict")
-    folder_labels =os.path.join(save_path, "labels")
+    if (save):
+      folder_predict =os.path.join(save_path, "predict")
+      folder_labels =os.path.join(save_path, "labels")
 
-    if not os.path.isdir(folder_predict):
-      os.mkdir(folder_predict)
+      if not os.path.isdir(folder_predict):
+        os.mkdir(folder_predict)
 
-    if not os.path.isdir(folder_labels):
-      os.mkdir(folder_labels)
+      if not os.path.isdir(folder_labels):
+        os.mkdir(folder_labels)
 
     with torch.no_grad():
         model.eval()
@@ -159,7 +160,8 @@ def test(args,model,dataloader, info_json, save_path, save=False, batch_size=1):
               labelImage.save(os.path.join(folder_labels, str(i) + ".png"))
         
         precision = np.mean(precision_record)
-        miou_list = per_class_iu(hist)[:-1]
+        miou_list = per_class_iu(hist) #[:-1]
+              
         miou_dict, miou = cal_miou(miou_list, info_json)
         print('')
         print('IoU for each class:')
