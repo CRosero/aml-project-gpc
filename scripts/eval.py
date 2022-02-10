@@ -265,11 +265,14 @@ def main(params):
     print('Trained until Epoch:', epoch_start_i)
     print('- Best miou:', miou_init)
 
-    if not os.path.isdir(args.save_img_path):
-      os.mkdir(args.save_img_path)
-
-    # test
-    test(args,model, dataloader_test, info, save=True, batch_size=1, save_path=args.save_img_path)
+    if (args.save_img_path is not None):
+      if not os.path.isdir(args.save_img_path):
+        os.mkdir(args.save_img_path)
+      # test
+      test(args,model, dataloader_test, info, save=True, batch_size=1, save_path=args.save_img_path)
+    else:
+      # test
+      test(args,model, dataloader_test, info, save=False, batch_size=1)
 
 
 
