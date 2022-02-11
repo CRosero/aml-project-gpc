@@ -37,11 +37,11 @@ def val(args, model, dataloader, save=False, batch_size=1, save_path=""):
       folder_predict =os.path.join(save_path, "predict")
       folder_labels =os.path.join(save_path, "labels")
 
-    if not os.path.isdir(folder_predict):
-      os.mkdir(folder_predict)
+      if not os.path.isdir(folder_predict):
+        os.mkdir(folder_predict)
 
-    if not os.path.isdir(folder_labels):
-      os.mkdir(folder_labels)
+      if not os.path.isdir(folder_labels):
+        os.mkdir(folder_labels)
     
     with torch.no_grad():
         model.eval()
@@ -101,8 +101,6 @@ def val(args, model, dataloader, save=False, batch_size=1, save_path=""):
 
 
 def test(args,model,dataloader, info_json, save_path="", save=False, batch_size=1):
-    #TODO: prendere dal json
-    #palette = [[128,64,128],[244,35,232], [70,70,70],[102,102,156],[190,153,153],[153,153,153],[250,170,30],[220,220,0],[107,142,35],[152,251,152],[70,130,180],[220,20,60],[255,0,0],[0,0,142],[0,0,70],[0,60,100],[0,80,100],[0,0,230],[119,11,32],[0,0,0]]
     palette = info_json['palette']
     num = list(range(0, len(palette)-1))
     num.append(255)
@@ -244,7 +242,7 @@ def main(params):
         model = torch.nn.DataParallel(model).cuda()
 
 
-    # load pretrained model if exists
+    # load pretrained model 
     
     print('load model from %s ...' % args.pretrained_model_path)
     checkpoint= torch.load(args.pretrained_model_path)
