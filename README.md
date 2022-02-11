@@ -17,7 +17,7 @@ The file `FS_train.py` can be used to train the network BiSeNet in a supervised 
 Example:
 ```
 python FS_train.py '--num_epochs', '50',
-                            '--data', 'path/to/data/folder'
+                    '--data', 'path/to/data/folder'
                             
 
 ```
