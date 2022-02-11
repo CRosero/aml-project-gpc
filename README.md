@@ -47,10 +47,11 @@ python DA_train.py  '--data-dir', 'path/to/data/folder',
 ```
 ## 3. Test
 
-The file `eval.py` contains the code to test a pretrained model.
+The file `scripts/eval.py` contains the code to test a pretrained model.
 
 Example:
 ```
+cd scripts
 python eval.py '--pretrained_model_path', 'path/to/pretrained/model',
                '--data', 'path/to/data/folder'
         
