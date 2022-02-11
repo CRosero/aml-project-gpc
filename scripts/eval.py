@@ -26,15 +26,23 @@ from model.build_BiSeNet import BiSeNet
 
 
 ## -- VALIDATION --
-def val(args, model, dataloader, save=False, batch_size=1):
+def val(args, model, dataloader, save=False, batch_size=1, save_path=""):
 
-    #TODO: prendere dal json
     palette = [[128,64,128],[244,35,232], [70,70,70],[102,102,156],[190,153,153],[153,153,153],[250,170,30],[220,220,0],[107,142,35],[152,251,152],[70,130,180],[220,20,60],[255,0,0],[0,0,142],[0,0,70],[0,60,100],[0,80,100],[0,0,230],[119,11,32],[0,0,0]]
     num = list(range(0, len(palette)-1))
     num.append(255)
-    dictionary = dict(zip(num, palette)) 
+    dictionary = dict(zip(num, palette))
     
+    if (save):
+      folder_predict =os.path.join(save_path, "predict")
+      folder_labels =os.path.join(save_path, "labels")
 
+    if not os.path.isdir(folder_predict):
+      os.mkdir(folder_predict)
+
+    if not os.path.isdir(folder_labels):
+      os.mkdir(folder_labels)
+    
     with torch.no_grad():
         model.eval()
         precision_record = []
@@ -68,20 +76,12 @@ def val(args, model, dataloader, save=False, batch_size=1):
               # save some images
               predict = colour_code_segmentation(np.array(predict), dictionary)
               label = colour_code_segmentation(np.array(label), dictionary)
-              if not os.path.isdir("/content/cloned-repo/image_output"):
-                os.mkdir("/content/cloned-repo/image_output")
-
-              if not os.path.isdir("/content/cloned-repo/image_output/predict"):
-                os.mkdir("/content/cloned-repo/image_output/predict")
-
-              if not os.path.isdir("/content/cloned-repo/image_output/label"):
-                os.mkdir("/content/cloned-repo/image_output/label")
 
               predictImage = Image.fromarray(predict.astype('uint8'), "RGB")
-              predictImage.save("/content/cloned-repo/image_output/predict/" + str(i) + ".png")
+              predictImage.save(os.path.join(folder_predict, str(i) + ".png"))
 
               labelImage = Image.fromarray(label.astype('uint8'), "RGB")
-              labelImage.save("/content/cloned-repo/image_output/label/" + str(i) + ".png")
+              labelImage.save(os.path.join(folder_labels, str(i) + ".png"))
             
         
         precision = np.mean(precision_record)
@@ -179,25 +179,20 @@ def get_arguments(params=[]):
       A list of parsed arguments.
     """   
     
-    # basic parameters
     parser = argparse.ArgumentParser()
-    
     parser.add_argument('--dataset', type=str, default="Cityscapes", help='Dataset you are using.')
     parser.add_argument('--crop_width', type=int, default=1024, help='Width of cropped/resized input image to network')
     parser.add_argument('--crop_height', type=int, default=512, help='Height of cropped/resized input image to network')   
-
-    parser.add_argument('--context_path', type=str, default="resnet101",
-                        help='The context path model you are using, resnet18, resnet101.')    
+    parser.add_argument('--context_path', type=str, default="resnet18", help='The context path model you are using, resnet18, resnet101.')    
     parser.add_argument('--data', type=str, default='content/data', help='path of training data')
     parser.add_argument('--num_workers', type=int, default=8, help='num of workers')
-    parser.add_argument('--num_classes', type=int, default=32, help='num of object classes (with void)')
+    parser.add_argument('--num_classes', type=int, default=19, help='num of object classes')
     parser.add_argument('--cuda', type=str, default='0', help='GPU ids used for training')
     parser.add_argument('--use_gpu', type=bool, default=True, help='whether to user gpu for training')
     parser.add_argument('--pretrained_model_path', type=str, default=None, help='path to pretrained model')   
     parser.add_argument("--random-seed", type=int, default=42, help="Random seed to have reproducible results.")
     parser.add_argument('--save_img_path', type=str, default=None, help='path to folder where to save imgs')   
-
-    
+   
     args = parser.parse_args(params)
     return args
 
@@ -224,7 +219,7 @@ def main(params):
     img_mean = np.array(img_mean, dtype=np.float32)
     
 
-    
+    # dataset
     test_dataset = cityscapesDataSet(root=data_root_path,
                                     list_path = val_path,
                                     info_json = info,
