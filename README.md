@@ -24,8 +24,14 @@ python FS_train.py '--num_epochs', '50',
 
 ## 2. Unsupervised domain adaptation
 The file `DA_train.py` can be used to train the network BiSeNet using unsupervised adversarial learning for the GTA -> Cityscapes domain adaptation task.
-The file `model/discriminator.py` contains the models of the two implemented discriminators: the Fully Convlutional discriminator and the Light Weight Discriminator. To use the Light Weight version set '--light_discriminator, True'.
+
+The file `model/discriminator.py` contains the models of the two implemented discriminators: the Fully Convlutional discriminator and the Light Weight Discriminator. 
+The architectures of the two discriminators are described in the folder 'architectures' as well as the one of BiSeNet.
+
+To use the Light Weight version set '--light_discriminator, True'.
+
 In `utils/FDA.py` is implemented the Fourier Domain Adaptation transformation as described in the [original code](https://github.com/YanchaoYang/FDA).
+
 To use FDA set '--FDA, True' and select the desired value for beta with '--LB, 0.05'.
 
 Example:
