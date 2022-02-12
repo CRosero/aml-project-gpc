@@ -7,7 +7,7 @@ PyTorch implementation of the algorithm implemented for the final project of the
 *Requirements*: pytorch 0.4.1, python 3.6, torchinfo.
 
 
-## Dataset
+## Datasets
 
 The datasets used are subsets of the Cityscapes and GTA5 datasets. They can be downloaded here: [data.zip](https://drive.google.com/file/d/1Q4yZdjx9WOn7EYU6FlHE9Vpamvpn15L2/view?usp=sharing)
 
