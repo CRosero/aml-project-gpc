@@ -265,7 +265,7 @@ def main(params):
     # train
     train(args, model, epoch_start_i, optimizer, dataloader_train, dataloader_val, miou_init)
     # final val
-    val(args, model, dataloader_val, save=True, batch_size=1, path=data_path)
+    val(args, model, dataloader_val, save=True, batch_size=1, save_path=data_path)
 
 
 if __name__ == '__main__':
