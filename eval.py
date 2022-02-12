@@ -220,6 +220,7 @@ def main(params):
     input_size = (int(args.crop_width), int(args.crop_height))
     f = open(info_path)
     info = json.load(f)
+    # mean
     img_mean = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32)
     img_mean = np.array(img_mean, dtype=np.float32)
     
@@ -253,10 +254,10 @@ def main(params):
     
     print('load model from %s ...' % args.pretrained_model_path)
     checkpoint= torch.load(args.pretrained_model_path)
-    try:
+    try: # model comes from step 3
       model.module.load_state_dict(checkpoint['segNet_state_dict'])
       epoch_start_i = int(checkpoint['iter'])
-    except:
+    except: # model comes from step 2
       model.module.load_state_dict(checkpoint['model_state_dict'])
       epoch_start_i = int(checkpoint['epoch'])
 

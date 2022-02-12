@@ -77,19 +77,23 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
   elif args.gan == 'LS':
     bce_loss = torch.nn.MSELoss()
 
+  # tensorboard writer
   writer = SummaryWriter(log_dir = save_tb_path)
+  # max_miou found so far (default = 0)
   max_miou = miou_init
   
   if args.FDA:
+    # save informations about the mean
     IMG_MEAN = np.array((104.00698793, 116.66876762, 122.67891434), dtype=np.float32)
     IMG_MEAN = torch.reshape( torch.from_numpy(IMG_MEAN), (1,3,1,1)  )
     mean_img = torch.zeros(1, 1)
   
+  # iterables over the dataloaders
   sourceloader_iter = enumerate(sourceloader)
   targetloader_iter = enumerate(targetloader)
   
   for i_iter in range(iter_start_i, args.num_steps):
-
+    # set models to train mode
     model.train() 
     model_D.train()   
 
@@ -98,16 +102,18 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
     loss_adv_target_value = 0
     loss_D_value = 0
 
+    # adjust learning rate
     poly_lr_scheduler(optimizer, args.learning_rate, iter=i_iter, max_iter=args.num_steps)
     poly_lr_scheduler(optimizer_D, args.learning_rate_D, iter=i_iter, max_iter=args.num_steps)
     
     tq = tqdm(total=args.iter_size*args.batch_size)
     tq.set_description('iter %d / %d' % (i_iter, args.num_steps))
     
-    for sub_i in range(args.iter_size): 
-       
+    for _ in range(args.iter_size): 
+        # zeroing the grads
         optimizer.zero_grad()
         optimizer_D.zero_grad()
+        
         # train Generator
 
         # don't accumulate grads in D
@@ -117,15 +123,15 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
         # get batch from dataloaders
         try:
           _, batch_source = next(sourceloader_iter)  # new batch source
-        except:
+        except: # one complete pass over the dataset has been done
           sourceloader_iter = enumerate(sourceloader)
           _, batch_source = next(sourceloader_iter)
         
         try:
           _, batch_target = next(targetloader_iter) # new batch target
-        except:
+        except: # one complete pass over the dataset has been done
           targetloader_iter = enumerate(targetloader)
-          _, batch_target = next(targetloader_iter) # new batch target
+          _, batch_target = next(targetloader_iter) 
 
         source_images, source_labels = batch_source
         target_images, _ = batch_target
@@ -158,8 +164,8 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
           loss3 = loss_calc(pred_source_2, source_labels, args.gpu, args.ignore_label)
           loss_seg = loss1 + loss2 + loss3
 
-        # proper normalization
-        loss_seg = loss_seg #/ args.iter_size
+        # segmentation loss
+        loss_seg = loss_seg 
         scaler.scale(loss_seg).backward()
 
         loss_seg_value += loss_seg.data.cpu().numpy() 
@@ -178,7 +184,7 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
           loss = loss #/ args.iter_size
         
         scaler.scale(loss).backward()
-        
+        # adversarial loss
         loss_adv_target_value += loss_adv_target.data.cpu().numpy() #/ args.iter_size
 
         # train discriminator
@@ -189,6 +195,7 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
 
         # train with source
         pred_source_result = pred_source_result.detach()
+        
         with amp.autocast():
           D_out_source = model_D(F.softmax(pred_source_result))
        
@@ -196,7 +203,7 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
           loss_D_source = loss_D_source / 2 #/ args.iter_size
         
         scaler.scale(loss_D_source).backward()
-
+        # discriminator loss
         loss_D_value += loss_D_source.data.cpu().numpy()
 
         # train with target
@@ -212,6 +219,7 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
 
         loss_D_value += loss_D_target.data.cpu().numpy()
         
+        # optimizers step
         scaler.step(optimizer)
         scaler.step(optimizer_D) 
         scaler.update()
@@ -229,7 +237,7 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
 
 
     if i_iter % args.save_pred_every == 0 and i_iter != 0:
-        #print(" Saving checkpoint in ", save_models_path, "latest_CE_loss.pth")
+        # Saving checkpoint
         if not os.path.isdir(save_models_path):
             os.mkdir(save_models_path)
         torch.save({
@@ -243,11 +251,10 @@ def train_DA(args, model, model_D, optimizer,optimizer_D, sourceloader, targetlo
                     os.path.join(save_models_path, 'latest_CE_loss.pth'))
     
     if i_iter % args.validation_step == 0 and i_iter != 0:
-        #print(" doing validation at iter ", i_iter)
+        # Performing validation
         precision, miou = val(args, model, targetloaderVal)
         if miou > max_miou:
             max_miou = miou
-            #print(" Saving checkpoint in ", save_models_path, "best_CE_loss.pth")
             os.makedirs(save_models_path, exist_ok=True)
             torch.save({
                   'iter': i_iter,
@@ -441,8 +448,7 @@ def main(params):
   targetloader = data.DataLoader(target_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
   targetloaderVal = data.DataLoader(target_dataset_Val, batch_size=1, num_workers=args.num_workers, pin_memory=True)
 
-  # Optimizer
-
+  # Optimizers
   optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=args.momentum, weight_decay=args.weight_decay)
   optimizer.zero_grad()
 
