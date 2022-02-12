@@ -1,8 +1,8 @@
 # Adversarial Domain Adaptation for Real-time Semantic Segmentation
-## Final Project of the course "Advanced Machine Learning" 2021 - 2022
+## Final Project – "Advanced Machine Learning" 2021 - 2022 Course at PoliTO
 ### Giulia D'Ascenzi, Patrizio de Girolamo, Carlos Rosero
 
-PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". The assignement of the project can be consulted [here](Assignement.pdf).
+PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". The assignment of the project can be consulted [here](Assignement.pdf).
 
 *Requirements*: pytorch 0.4.1, python 3.6, torchinfo.
 
@@ -23,14 +23,15 @@ python FS_train.py '--num_epochs', '50',
 ```
 
 ## 2. Unsupervised domain adaptation
-The file `DA_train.py` can be used to train the network BiSeNet using unsupervised adversarial learning for the GTA -> Cityscapes domain adaptation task.
+The file `DA_train.py` can be used to train the network BiSeNet using unsupervised adversarial learning for the GTA5 -> Cityscapes domain adaptation task.
 
 The file `model/discriminator.py` contains the models of the two implemented discriminators: the Fully Convlutional discriminator and the Light Weight Discriminator. 
-The architectures of the two discriminators are described in the folder 'architectures' as well as the one of BiSeNet.
+
+The 'architectures' folder describes the architectures of the two discriminators and BiSeNet.
 
 To use the Light Weight version set '--light_discriminator, True'.
 
-In `utils/FDA.py` is implemented the Fourier Domain Adaptation transformation as described in the [original code](https://github.com/YanchaoYang/FDA).
+In `utils/FDA.py` the Fourier Domain Adaptation transformation is implemented as described in the [original code](https://github.com/YanchaoYang/FDA).
 
 To use FDA set '--FDA, True' and select the desired value for beta with '--LB, 0.05'.
 
