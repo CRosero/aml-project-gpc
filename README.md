@@ -11,6 +11,9 @@ PyTorch implementation of the algorithm implemented for the final project of the
 
 The datasets used are subsets of the Cityscapes and GTA5 datasets. They can be downloaded here: [data.zip](https://drive.google.com/file/d/1Q4yZdjx9WOn7EYU6FlHE9Vpamvpn15L2/view?usp=sharing)
 
+## Overview
+![](architectures/full_network.jpeg)
+
 ## 1. Fully supervised training with the target dataset.
 The file `FS_train.py` can be used to train the network BiSeNet in a supervised way using the target dataset (Cityscapes).
 
