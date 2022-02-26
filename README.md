@@ -2,7 +2,10 @@
 ## Final Project – "Advanced Machine Learning" 2021 - 2022 Course at PoliTO
 ### Giulia D'Ascenzi, Patrizio de Girolamo, Carlos Rosero
 
-PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". The assignment of the project. filled with the results got, can be consulted [here](Assignement.pdf).
+PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". 
+
+The assignment of the project, filled with the results got, can be consulted [here](Assignement.pdf).
+
 
 *Requirements*: pytorch 0.4.1, python 3.6, torchinfo.
 
