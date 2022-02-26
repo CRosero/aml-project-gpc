@@ -4,8 +4,7 @@
 
 PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". 
 
-The assignment of the project, filled with the results got, can be consulted [here](Assignement.pdf).
-
+The assignment of the project, filled with the results got, can be consulted [here](Assignement.pdf), while [here](Report.pdf) can be found the detailed report of the project.
 
 *Requirements*: pytorch 0.4.1, python 3.6, torchinfo.
 
