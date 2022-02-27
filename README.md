@@ -4,7 +4,12 @@
 
 PyTorch implementation of the algorithm implemented for the final project of the course "Advanced Machine Learning". 
 
-The assignment of the project, filled with the results got, can be consulted [here](Assignement.pdf), while [here](Report.pdf) can be found the detailed report of the project.
+In the "report" folder can be consulted:
+
+ - The [assignement](Assignement.pdf) of the work, filled with the results got.
+ - The final detailed [report](Report.pdf) of the project.
+ - The slides of the [presentation](AMLppt.pdf) done by the group during the oral exam of February 2022.
+
 
 *Requirements*: pytorch 0.4.1, python 3.6, torchinfo.
 
